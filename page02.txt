@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+</script>
+</head>
+
+<body>
+
+<center>
+農業體驗戶外教育休閒農場：<br>
+<br>
+<table border='1' bordercolor="#7E3D76" bgcolor="#FFEEDD" width="70%" height="20%" cellpadding="2" cellspacing="0.5">
+		<tr>
+			<td>項目</td>
+			<td>農場名稱</td>
+			<td>電話</td>
+			<td>地址</td>
+			<td>體驗活動</td>
+			<td>Facebook</td>
+		</tr>
+	
+	<tbody id="relax">
+		
+	</tbody>
+</table>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+	
+	$.ajax({
+			url: 'https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvOutdoorEdu.aspx?IsTransData=1&UnitId=242',
+			type: "get",
+			dataType: "json",
+			success: function(info) {
+						console.log("查詢抓回來的筆數有幾筆");
+						console.log(info.length);
+						
+						for(i = 0; i < 43; i++){
+													$("#relax").append(
+																	"<tr>"+
+																	"<td>"+(i+1)+"</td>"+
+																	"<td>"+info[i].FarmNm_CH+"</td>"+
+																	"<td>"+info[i].TEL+"</td>"+
+																	"<td>"+info[i].Address_CH+"</td>"+
+																	"<td>"+info[i].ServeItem+"</td>"+
+																	"<td><button><a href='"+info[i].Facebook+"' target='new'>"+"報名</button></a></td>"+
+																	"</tr>"
+													)					
+						}
+			
+					},
+			error: function(data) {
+					console.log("請求失敗");
+			}
+	
+	});
+	
+});
+</script>

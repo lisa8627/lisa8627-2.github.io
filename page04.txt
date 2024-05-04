@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+</script>
+</head>
+
+<body>
+
+<center>
+林業保育署自然教育中心課程資訊：<br>
+<br>
+<table border='1' bordercolor="#613030" bgcolor="#FFFCEC" width="70%" height="20%" cellpadding="2" cellspacing="0.5">
+		<tr>
+			<td>項目</td>
+			<td>自然教育中心名稱</td>
+			<td>課程名稱</td>
+			<td>報名期間_起</td>
+			<td>報名期間_迄</td>
+			<td>報名網址</td>
+		</tr>
+	
+	<tbody id="lesson">
+		
+	</tbody>
+</table>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+	
+	$.ajax({
+			url: 'https://data.moa.gov.tw/Service/OpenData/ForestNcLesson.aspx?IsTransData=1&UnitId=D48',
+			type: "get",
+			dataType: "json",
+			success: function(info) {
+						console.log("查詢抓回來的筆數有幾筆");
+						console.log(info.length);
+						
+						for(i = 0; i < 116; i++){
+													$("#lesson").append(
+																	"<tr>"+
+																	"<td>"+(i+1)+"</td>"+
+																	"<td>"+info[i].AduName+"</td>"+
+																	"<td>"+info[i].NAduName+"</td>"+
+																	"<td>"+info[i].onAskStart+"</td>"+
+																	"<td>"+info[i].onAskEnd+"</td>"+
+																	"<td><a href='"+info[i].url+"' target='new'>"+"報名</a></td>"+
+																	"</tr>"
+													)					
+						}
+			
+					},
+			error: function(data) {
+					console.log("請求失敗");
+			}
+	
+	});
+	
+});
+</script>

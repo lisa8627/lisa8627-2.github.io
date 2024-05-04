@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+</script>
+</head>
+
+<body>
+
+<center>
+林業保育署治理工程點位：<br>
+<br>
+<table border='1' bordercolor="#000000" bgcolor="#F0FFF0" cellpadding="2" cellspacing="0.5">
+		<tr>
+			<td>編號</td>
+			<td>年份</td>
+			<td align="center">工程名稱</td>
+		
+		</tr>
+	
+	<tbody id="forest">
+		
+	</tbody>
+</table>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+	
+	$.ajax({
+			url: 'https://data.moa.gov.tw/Service/OpenData/TransService.aspx?UnitId=iznHxCJ2d3Ow&IsTransData=1',
+			type: "get",
+			dataType: "json",
+			success: function(info) {
+						console.log("查詢抓回來的筆數有幾筆");
+						console.log(info.length);
+						
+						for(i = 0; i < 100; i++){
+													$("#forest").append(
+																	"<tr>"+
+																	"<td>"+(i+1)+"</td>"+
+																	"<td>"+info[i].planyear+"</td>"+
+																	"<td>"+info[i].eng_name+"</td>"+
+																	"</tr>"
+													)					
+						}
+			
+					},
+			error: function(data) {
+					console.log("請求失敗");
+			}
+	
+	});
+	
+});
+</script>

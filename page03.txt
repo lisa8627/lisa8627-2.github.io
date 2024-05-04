@@ -1,0 +1,64 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+</script>
+</head>
+
+<body>
+
+<center>
+推薦農村優良伴手禮：<br>
+<br>
+<table border='1' bgcolor="	#ECF5FF" width="55%" height="20%" cellpadding="2" cellspacing="0.5">
+		<tr>
+			<td>項目</td>
+			<td>產品名稱</td>
+			<td>購買地點</td>
+			<td>出品單位</td>
+			<td>聯絡電話</td>
+			<td>產品圖片</td>
+		
+		</tr>
+	
+	<tbody id="food">
+		
+	</tbody>
+</table>
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+	
+	$.ajax({
+			url: '	https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvAgriculturalProduce.aspx?IsTransData=1&UnitId=197',
+			type: "get",
+			dataType: "json",
+			success: function(info) {
+						console.log("查詢抓回來的筆數有幾筆");
+						console.log(info.length);
+						
+						for(i = 0; i < 43; i++){
+													$("#food").append(
+																	"<tr>"+
+																	"<td>"+(i+1)+"</td>"+
+																	"<td>"+info[i].Name+"</td>"+
+																	"<td>"+info[i].SalePlace+"</td>"+
+																	"<td>"+info[i].ProduceOrg+"</td>"+
+																	"<td>"+info[i].ContactTel+"</td>"+
+																	"<td><img src="+info[i].Column1+" width=200 height=100></td>"+
+																	"</tr>"
+													)					
+						}
+			
+					},
+			error: function(data) {
+					console.log("請求失敗");
+			}
+	
+	});
+	
+});
+</script>

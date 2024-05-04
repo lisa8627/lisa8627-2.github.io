@@ -1,0 +1,47 @@
+<html>
+<metahttp-equiv="Content-Type"content="text/html; charset=utf-8"/>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+</script>
+</head>
+
+<body>
+
+<center>
+取得許可登記證之休閒農場名錄：<br>
+<br>
+
+<span id="farm">
+
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+	
+	$.ajax({
+			url: 'https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvQualityFarm.aspx?IsTransData=1&UnitId=376',
+			type: "get",
+			dataType: "json",
+			success: function(info) {
+						console.log("查詢抓回來的筆數有幾筆");
+						console.log(info.length);
+						
+						for(i = 0; i < 69; i++){
+													$("#farm").append(
+																	"<p>"+ (i+1)+"." + info[i].FarmNm_CH + "<br>" +
+																	" "+info[i].FarmNm_EN+ "<br>" +
+																	"<img src = "+info[i].Photo+" width=350 height=200></p>" + "<br>"
+													)					
+						}
+			
+					},
+			error: function(data) {
+					console.log("請求失敗");
+			}
+	
+	});
+	
+});
+</script>
